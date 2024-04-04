@@ -8,11 +8,11 @@ from django.db import models
 
 
 class User(models.Model):
-    user_id = models.AutoField(primary_key=True, default=1)
+    user_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     email = models.CharField(max_length=50, unique=True)
-    password = models.CharField(max_length=50, default='password')
-    user_role = models.CharField(max_length=50, default='client')
+    password = models.CharField(max_length=50)
+    user_role = models.CharField(max_length=50)
 
     def __str__(self):
         return f"{self.name} ({self.user_role} - {self.email})"
