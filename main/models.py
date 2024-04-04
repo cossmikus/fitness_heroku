@@ -15,13 +15,22 @@ class User(models.Model):
     user_role = models.CharField(max_length=50, default='client')
 
     def __str__(self):
-        return f"{self.name} ({self.user_role})"
+        return f"{self.name} ({self.user_role} - {self.email})"
 
 class The_Admin(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='admin')
+    
+    def __str__(self):
+        return f"{self.user.name} (admin - {self.user.email})"
 
 class The_Trainer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='trainer')
+    
+    def __str__(self):
+        return f"{self.user.name} (trainer - {self.user.email})"
 
 class The_Client(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='client')
+    
+    def __str__(self):
+        return f"{self.user.name} (client - {self.user.email})"
