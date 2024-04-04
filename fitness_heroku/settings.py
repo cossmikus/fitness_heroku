@@ -30,7 +30,7 @@ SECRET_KEY = "django-insecure-j%=_u-ctk&#w8folg=et+g*4e_1f%=gk=8&okf!kdi&%$hge83
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['fitnessheroku.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -94,6 +94,9 @@ DATABASES = {
         "PASSWORD": os.environ.get("PGPASSWORD"),
         "HOST": os.environ.get("PGHOST"),
         "PORT": os.environ.get("PGPORT"),
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
     }
 }
 # Password validation
