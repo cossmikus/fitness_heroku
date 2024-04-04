@@ -68,14 +68,14 @@ def getUser(request, pk):
 
 @api_view(['POST'])
 def addUser(request):
-    modified_request_data = request.data.copy()
-    modified_request_data['password'] = make_password(request.data['password'])
-    serializer = UserSerializer(data=modified_request_data)
+    request.data['password'] = make_password(request.data['password'])
+    serializer = UserSerializer(data=request.data)
     
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data)
-    return Response(serializer.errors, status=400)
+    else:
+        return Response(serializer.errors, status=400)
 
 @api_view(['PUT'])
 def updateUser(request, pk):
