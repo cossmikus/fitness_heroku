@@ -9,7 +9,6 @@ from django.db import models
 
 # Corrected User model without the default value for 'user_id'
 class User(models.Model):
-    user_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     email = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=50)  # Consider using Django's User model for handling passwords securely
