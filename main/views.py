@@ -180,13 +180,19 @@ def generate_jwt_token(user):
 def authenticate(email=None, password=None):
     User = get_user_model()
     try:
+        # Retrieve the user by email
         user = User.objects.get(email=email)
-        if check_password(password, user.password):
-            return user
-        else:
-            return None
     except User.DoesNotExist:
-        return None
+        # If no user is found, raise an authentication failed error
+        raise AuthenticationFailed('No such user')
+
+    # Verify the password
+    if user and check_password(password, user.password):
+        return user
+    else:
+        # If password check fails, raise an authentication failed error
+        raise AuthenticationFailed('Invalid credentials')
+
 
 
 # Example login view
@@ -203,5 +209,5 @@ def login(request):
         return Response({"token": token})
     else:
         return Response(
-            {"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED
+            {"error": "Invalid credentials"}
         )
