@@ -10,15 +10,16 @@
 # ]
 
 from django.urls import path
-from .views import getUsers, getUser, addUser, updateUser, deleteUser, getAdmin, getTrainer, getClient
+from .views import getUsers, getUser, addUser, updateUser, deleteUser, getAdmin, getTrainer, getClient, login
 
 urlpatterns = [
     path('', getUsers),
     path('<int:pk>/', getUser),
-    path('add', addUser),
+    path('register', addUser),
     path('update/<int:pk>', updateUser),
     path('delete/<int:pk>', deleteUser),
     path('admin', getAdmin),
     path('trainer', getTrainer),
     path('client', getClient),
+    path('login', login),
 ]

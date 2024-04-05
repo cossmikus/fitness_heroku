@@ -34,3 +34,12 @@ class The_Client(models.Model):
     
     def __str__(self):
         return f"{self.user.name} (Client - {self.user.email})"
+    
+class Schedule(models.Model):
+    trainer = models.ForeignKey(The_Trainer, on_delete=models.CASCADE)
+    date = models.CharField()
+    time = models.CharField()
+    description = models.TextField()
+
+    def __str__(self):
+        return f"{self.trainer.user.name}'s Schedule Entry"

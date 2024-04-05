@@ -21,3 +21,8 @@ class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = The_Client
         fields = '__all__'
+
+class ScheduleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Schedule
+        fields = '__all__'
