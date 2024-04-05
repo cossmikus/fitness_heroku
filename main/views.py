@@ -66,16 +66,15 @@ def getUser(request, pk):
     serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
 
+#add user
 @api_view(['POST'])
 def addUser(request):
-    request.data['password'] = make_password(request.data['password'])
     serializer = UserSerializer(data=request.data)
     
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data)
-    else:
-        return Response(serializer.errors, status=400)
+    
+    return Response(serializer.data)
 
 @api_view(['PUT'])
 def updateUser(request, pk):
