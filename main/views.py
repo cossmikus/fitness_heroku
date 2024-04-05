@@ -66,8 +66,9 @@ from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.conf import settings
 from datetime import datetime, timedelta
-#import jwt
-#import jwt
+# import jwt
+# import jwt
+
 
 @api_view(["GET"])
 def getUsers(request):
@@ -166,34 +167,15 @@ def generate_jwt_token(user):
 
     # Custom payload claims
     # Note: The 'exp' claim is automatically managed by SimpleJWT, but you can adjust it if needed
-    access_token['user_id'] = user.id
-    access_token['email'] = user.email
-    access_token['user_role'] = user.user_role
+    access_token["user_id"] = user.id
+    access_token["email"] = user.email
+    access_token["user_role"] = user.user_role
     access_token.set_exp(lifetime=timedelta(days=1))
 
     return {
-        'refresh': str(refresh),
-        'access': str(access_token),
+        "refresh": str(refresh),
+        "access": str(access_token),
     }
-
-
-def authenticate(email=None, password=None):
-    User = get_user_model()
-    try:
-        # Retrieve the user by email
-        user = User.objects.get(email=email)
-    except User.DoesNotExist:
-        # If no user is found, raise an authentication failed error
-        raise AuthenticationFailed('No such user')
-
-    # Verify the password
-    if user and check_password(password, user.password):
-        return user
-    else:
-        # If password check fails, raise an authentication failed error
-        raise AuthenticationFailed('Invalid credentials')
-
-
 
 # Example login view
 @api_view(["POST"])
@@ -205,9 +187,8 @@ def login(request):
     user = authenticate(email=email, password=password)
     if user:
         # Generate JWT token with user role included in the payload
-        token = generate_jwt_token(user)
-        return Response({"token": token})
+        # token = generate_jwt_token(user)
+        # return Response({"token": token})
+        return Response("okk found")
     else:
-        return Response(
-            {"error": "Invalid credentials"}
-        )
+        return Response({"error": "Invalid credentials"})
