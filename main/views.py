@@ -66,15 +66,40 @@ def getUser(request, pk):
     serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
 
-#add user
+# #add user
+# @api_view(['POST'])
+# def addUser(request):
+#     serializer = UserSerializer(data=request.data)
+    
+#     if serializer.is_valid():
+#         serializer.save()
+    
+#     return Response(serializer.data)
+
 @api_view(['POST'])
 def addUser(request):
-    serializer = UserSerializer(data=request.data)
+    # Hash the password before saving
+    request.data['password'] = make_password(request.data['password'])
     
-    if serializer.is_valid():
-        serializer.save()
+    # Initialize the User serializer with request data
+    user_serializer = UserSerializer(data=request.data)
     
-    return Response(serializer.data)
+    if user_serializer.is_valid():
+        # Save the User instance
+        user = user_serializer.save()
+
+        # Based on the user_role, create the corresponding role instance
+        user_role = request.data['user_role']
+        if user_role == 'admin':
+            The_Admin.objects.create(user=user)
+        elif user_role == 'trainer':
+            The_Trainer.objects.create(user=user)
+        elif user_role == 'client':
+            The_Client.objects.create(user=user)
+
+        return Response(user_serializer.data)
+    else:
+        return Response(user_serializer.errors, status=400)
 
 @api_view(['PUT'])
 def updateUser(request, pk):
