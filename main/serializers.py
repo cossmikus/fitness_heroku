@@ -11,7 +11,6 @@ class AdminSerializer(serializers.ModelSerializer):
     class Meta:
         model = The_Admin
         fields = '__all__'
-
 class TrainerSerializer(serializers.ModelSerializer):
     class Meta:
         model = The_Trainer
