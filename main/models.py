@@ -15,7 +15,7 @@ class User(models.Model):
     user_role = models.CharField(max_length=50)
 
     def __str__(self):
-        return f"{self.name} ({self.user_role} - {self.email})"
+        return f"{self.name}, {self.email}, {self.user_role}"
 
 class The_Admin(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='admin')
