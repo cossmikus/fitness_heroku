@@ -38,8 +38,8 @@ class The_Client(models.Model):
 class Schedule(models.Model):
     trainer = models.ForeignKey(The_Trainer, on_delete=models.CASCADE)
     client = models.ForeignKey(The_Client, on_delete=models.CASCADE)
-    date = models.CharField()
-    time = models.CharField()
+    date = models.CharField(max_length=50)
+    time = models.CharField(max_length=50)
     description = models.TextField()
 
     def __str__(self):

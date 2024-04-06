@@ -151,7 +151,6 @@ def getClient(request):
 from django.contrib.auth.hashers import check_password
 from rest_framework import status
 from .models import User
-import jwt
 
 @api_view(["POST"])
 def login(request):
