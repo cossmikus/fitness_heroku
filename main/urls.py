@@ -11,7 +11,7 @@
 
 from django.urls import path
 from .views import getUsers, getUser, addUser, updateUser, deleteUser, getAdmin, getTrainer, getClient, login
-
+from .views import getTrainerNames, addSchedule
 urlpatterns = [
     path('', getUsers),
     path('<int:pk>/', getUser),
@@ -22,4 +22,6 @@ urlpatterns = [
     path('trainer', getTrainer),
     path('client', getClient),
     path('login', login),
+    path('getTrainerInfo', getTrainerNames),
+    path('addSchedule', addSchedule)
 ]
