@@ -12,7 +12,11 @@ This application facilitates user registration, authentication, and schedule man
 The backend is developed with Django and handles user authentication, schedule management, and more, using JWT for secure access.
 
 - **Deployed Backend**: [https://fitnessheroku-2b7e0fea23b9.herokuapp.com/](https://fitnessheroku-2b7e0fea23b9.herokuapp.com/)
-- **GitHub Repository**: [fitness_heroku](https://github.com/cossmikus/fitness_heroku)
+- **Backend repository**: [https://github.com/cossmikus/fitness_heroku](https://github.com/cossmikus/fitness_heroku)
+
+
+- **Deployed Frontend**: [https://frontend-fitness.vercel.app/](https://frontend-fitness.vercel.app/)
+- **Frontend repository**: [https://github.com/cossmikus/frontend_fitness](https://github.com/cossmikus/frontend_fitness)
 
 ### Features
 
