@@ -25,3 +25,4 @@ load_dotenv==0.1.0
 django_heroku==0.3.1
 djangorestframework-simplejwt==5.3.1
 PyJWT==2.8.0
+django-cors-headers==4.3.1
