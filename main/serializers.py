@@ -7,6 +7,11 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
         
+class UserSerializerNames(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'name', 'email')
+        
 
 class AdminSerializer(serializers.ModelSerializer):
     class Meta:

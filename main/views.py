@@ -56,7 +56,8 @@ from .serializers import (
     AdminSerializer,
     TrainerSerializer,
     ClientSerializer,
-    ScheduleSerializer
+    ScheduleSerializer,
+    UserSerializerNames
 )
 from django.contrib.auth.hashers import make_password
 from datetime import datetime, timedelta
@@ -151,6 +152,7 @@ def getClient(request):
 from django.contrib.auth.hashers import check_password
 from rest_framework import status
 from .models import User
+import jwt
 
 @api_view(["POST"])
 def login(request):
@@ -197,7 +199,7 @@ def getTrainerNames(request):
         user_role = payload.get('user_role', '')
 
         # Check if the user role is either 'client' or 'admin'
-        if user_role in ['client', 'admin']:
+        if user_role in ['client', 'admin', 'trainer']:
             # Fetch trainers from User model where user_role is 'trainer'
             trainers = User.objects.filter(user_role='trainer')
             # Prepare response data
@@ -215,6 +217,23 @@ def getTrainerNames(request):
         return Response({'error': 'Authentication token is expired.'}, status=status.HTTP_401_UNAUTHORIZED)
     except jwt.exceptions.DecodeError:
         return Response({'error': 'Error decoding token.'}, status=status.HTTP_401_UNAUTHORIZED)
+    
+@api_view(["GET"])
+def getClientsInfo(request):
+    # Retrieve all clients
+    clients = The_Client.objects.all()
+    
+    # Retrieve user ids associated with clients
+    user_ids = [client.user_id for client in clients]
+
+    # Retrieve users based on the user ids
+    users = User.objects.filter(id__in=user_ids)
+
+    # Serialize the data
+    serializer = UserSerializerNames(users, many=True)
+    
+    return Response(serializer.data)
+
     
 from rest_framework import status
 from .models import Schedule, The_Trainer, The_Client, User
@@ -250,3 +269,25 @@ def addSchedule(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(["GET"])
+def getAllSchedules(request):
+    schedules = Schedule.objects.all()
+    serializer = ScheduleSerializer(schedules, many=True)
+    return Response(serializer.data)
+
+@api_view(["GET"])
+def getScheduleTrainer(request, pk):
+    # Retrieve schedules based on the trainer id
+    schedules = Schedule.objects.filter(trainer=pk)
+    # Serialize the data
+    serializer = ScheduleSerializer(schedules, many=True)
+    return Response(serializer.data)
+
+@api_view(["GET"])
+def getScheduleClient(request, pk):
+    # Retrieve schedules based on the client id
+    schedules = Schedule.objects.filter(client=pk)
+    # Serialize the data
+    serializer = ScheduleSerializer(schedules, many=True)
+    return Response(serializer.data)
