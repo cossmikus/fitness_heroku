@@ -106,9 +106,9 @@ DATABASES = {
         "PASSWORD": os.environ.get("PGPASSWORD"),
         "HOST": os.environ.get("PGHOST"),
         "PORT": os.environ.get("PGPORT"),
-        # 'OPTIONS': {
-        #     'sslmode': 'require',
-        # },
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
     }
 }
 # Password validation
