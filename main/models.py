@@ -45,11 +45,3 @@ class Schedule(models.Model):
     def __str__(self):
         return f"{self.trainer.user.name}'s Schedule Entry"
 
-class Gym(models.Model):
-    name = models.CharField(max_length=50)
-    location = models.CharField(max_length=50)
-    trainers = models.ManyToManyField(The_Trainer, related_name='gyms')
-    clients = models.ManyToManyField(The_Client, related_name='gyms')
-
-    def __str__(self):
-        return f"{self.name} - {self.location}"
